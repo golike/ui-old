@@ -42,6 +42,23 @@ var ui = {};
 					};
 				}
 				break;
+			
+			case 'checkbox':
+				if (ui[e[i].id] === undefined) {
+					ui[e[i].id] = {
+						element: e[i],
+						type: 'checkbox',
+						value: function(val) {
+							if (val !== undefined) {
+								this.element.checked = val;
+								return this.element.checked;
+							} else {
+								return this.element.checked;
+							}
+						}
+					};
+				}
+				break;
 
 			case 'text':
 				if (ui[e[i].id] === undefined) {
@@ -105,4 +122,20 @@ var ui = {};
 	}
 	
 	e = document.getElementsByTagName('textarea');
+	for (var i = 0; i < e.length; i++) {		
+		if (ui[e[i].id] === undefined) {
+			ui[e[i].id] = {
+				element: e[i],
+				type: 'textarea',
+				value: function(val) {
+					if (val !== undefined) {
+						this.element.value = val;
+						return this.element.value;
+					} else {
+						return this.element.value;
+					}
+				}
+			};
+		}
+	}
 })();
