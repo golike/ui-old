@@ -1,0 +1,2 @@
+ui.js
+A no fuss library for interacting with html controls. All you have to do is include ui.js on your page, and it will automatically scan all of the controls on the page, and add them to the ui object.
