@@ -77,6 +77,23 @@ var ui = {};
 				}
 				break;
 			
+			case 'color':
+				if (ui[e[i].id] === undefined) {
+					ui[e[i].id] = {
+						element: e[i],
+						type: 'text',
+						value: function(val) {
+							if (val !== undefined) {
+								this.element.value = val;
+								return this.element.value;
+							} else {
+								return this.element.value;
+							}
+						}
+					};
+				}
+				break;
+			
 			case 'range':
 				if (ui[e[i].id] === undefined) {
 					ui[e[i].id] = {
@@ -90,6 +107,23 @@ var ui = {};
 								return this.element.value;
 							}
 							
+						}
+					};
+				}
+				break;
+			
+			case 'password':
+				if (ui[e[i].id] === undefined) {
+					ui[e[i].id] = {
+						element: e[i],
+						type: 'password',
+						value: function(val) {
+							if (val !== undefined) {
+								this.element.value = val;
+								return this.element.value;
+							} else {
+								return this.element.value;
+							}
 						}
 					};
 				}

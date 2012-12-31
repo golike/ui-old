@@ -10,5 +10,6 @@ input:text
 input:radio
 input:checkbox
 input:range
+input:password
 select
 textarea
