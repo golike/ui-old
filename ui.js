@@ -51,10 +51,8 @@ var ui = {};
 							value: function(val) {
 								if (val !== undefined) {
 									this.element.checked = val;
-									return this.element.checked;
-								} else {
-									return this.element.checked;
 								}
+								return this.element.value;
 							}
 						};
 					}
@@ -68,10 +66,8 @@ var ui = {};
 							value: function(val) {
 								if (val !== undefined) {
 									this.element.value = val;
-									return this.element.value;
-								} else {
-									return this.element.value;
 								}
+								return this.element.value;
 							}
 						};
 					}
@@ -85,10 +81,8 @@ var ui = {};
 							value: function(val) {
 								if (val !== undefined) {
 									this.element.value = val;
-									return this.element.value;
-								} else {
-									return this.element.value;
 								}
+								return this.element.value;
 							}
 						};
 					}
@@ -102,11 +96,8 @@ var ui = {};
 							value: function(val) {
 								if (val !== undefined) {
 									this.element.value = val;
-									return this.element.value;
-								} else {
-									return this.element.value;
 								}
-
+								return this.element.value;
 							}
 						};
 					}
@@ -120,10 +111,8 @@ var ui = {};
 							value: function(val) {
 								if (val !== undefined) {
 									this.element.value = val;
-									return this.element.value;
-								} else {
-									return this.element.value;
 								}
+								return this.element.value;
 							}
 						};
 					}
@@ -164,10 +153,9 @@ var ui = {};
 					value: function(val) {
 						if (val !== undefined) {
 							this.element.value = val;
-							return this.element.value;
-						} else {
-							return this.element.value;
+
 						}
+						return this.element.value;
 					}
 				};
 			}
