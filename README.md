@@ -17,3 +17,8 @@ Supported control types:
 * input:password
 * select
 * textarea
+
+Additional functionality:
+-------------------------
+
+For radios and checkboxes, UI automatically sets and removes a 'selected' class from any corresponding labels (that have the 'for' attribute set).

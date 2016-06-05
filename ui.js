@@ -2,66 +2,129 @@ var ui = {};
 
 (function() {
 	'use strict';
-	var i, j;
+	var i;
 
 	ui.init = function() {
 		var e = document.getElementsByTagName('input');
-
+		ui._inputs = [];
 		for (i = 0; i < e.length; i++) {
-			switch (e[i].type) {
+			ui._inputs.push(e[i]);
+		}
 
+		e = document.getElementsByTagName('label');
+		ui._labels = [];
+		for (i = 0; i < e.length; i++) {
+			ui._labels.push(e[i]);
+		}
+
+		ui._inputs.forEach(function(element) {
+			switch (element.type) {
 				case 'radio':
-					var radioElements = [];
+					if (ui[element.name] === undefined) {
+						ui[element.name] = {
+							elements: ui._inputs.filter(function(e) {
+								return e.type === 'radio' && e.name === element.name;
+							}),
+							type: 'radio',
+							value: function() {
+								return function(val) {
+									if (val !== undefined) {
+										var intendedElements = this.elements.filter(function(element) {
+											return element.value === val;
+										});
 
-					for (j = 0; j < e.length; j++) {
-						if (e[j].type === 'radio' && e[j].name === e[i].name) {
-							radioElements.push(e[j]);
+										if (intendedElements.length > 0) {
+											intendedElements[0].checked = true;
+											return intendedElements[0].value;
+										} else {
+											return null;
+										}
+									} else {
+										var checkedElements = this.elements.filter(function(element) {
+											return element.checked === true;
+										});
+										if (checkedElements.length > 0) {
+											return checkedElements[0].value;
+										} else {
+											return null;
+										}
+									}
+								};
+							}()
+						};
+					}
+
+					// add/remove 'selected' class to related labels if it's checked
+					for (var i = 0; i < element.labels.length; i++) {
+						if (element.checked) {
+							element.labels[i].classList.add('selected');
+						} else {
+							element.labels[i].classList.remove('selected');
 						}
 					}
 
-					if (ui[e[i].name] === undefined) {
-						ui[e[i].name] = {
-							elements: radioElements,
-							type: 'radio',
-							value: function(val) {
-								if (val !== undefined) {
-									for (i = 0; i < this.elements.length; i++) {
-										if (this.elements[i].value === val.toString()) {
-											this.elements[i].checked = true;
-											return this.elements[i].value;
-										}
-									}
+					// set a listener to add/remove 'selected' class for related labels on change
+					element.onchange = function() {
+						var thisElement = this;
+						ui._inputs.filter(function(element) {
+							return element.type === 'radio' && element.name === thisElement.name;
+						}).forEach(function(element) {
+							for (var i = 0; i < element.labels.length; i++) {
+								var label = element.labels[i];
+								if (label.htmlFor === thisElement.id) {
+									label.classList.add('selected');
 								} else {
-									for (i = 0; i < this.elements.length; i++) {
-										if (this.elements[i].checked) {
-											return this.elements[i].value;
-										}
-									}
+									label.classList.remove('selected');
 								}
 							}
-						};
-					}
+						});
+					};
 					break;
 
 				case 'checkbox':
-					if (ui[e[i].id] === undefined) {
-						ui[e[i].id] = {
-							element: e[i],
+					if (ui[element.name] === undefined) {
+						ui[element.name] = {
+							element: element,
 							type: 'checkbox',
-							value: function(val) {
-								if (val !== undefined) {
-									this.element.checked = val;
-								}
-								return this.element.value;
-							}
+							value: function() {
+								return function(val) {
+									if (val !== undefined) {
+										this.element.checked = val;
+									}
+									return this.element.value;
+								};
+							}()
 						};
 					}
+
+					// add/remove 'selected' class to related labels if it's checked
+					for (i = 0; i < element.labels.length; i++) {
+						var label = element.labels[i];
+						if (element.checked) {
+							label.classList.add('selected');
+						} else {
+							label.classList.remove('selected');
+						}
+					}
+
+					// set a listener to add/remove 'selected' class for related labels on change
+					element.onchange = function() {
+						for (var i = 0; i < this.labels.length; i++) {
+							var label = this.labels[i];
+							if (this.checked) {
+								label.classList.add('selected');
+							} else {
+								label.classList.remove('selected');
+							}
+						}
+					};
+
 					break;
 
 				case 'text':
-					if (ui[e[i].id] === undefined) {
-						ui[e[i].id] = {
-							element: e[i],
+					if (ui[element.id] === undefined) {
+						ui[element.id] = {
+							element: element,
 							type: 'text',
 							value: function(val) {
 								if (val !== undefined) {
@@ -74,10 +137,10 @@ var ui = {};
 					break;
 
 				case 'color':
-					if (ui[e[i].id] === undefined) {
-						ui[e[i].id] = {
-							element: e[i],
-							type: 'text',
+					if (ui[element.id] === undefined) {
+						ui[element.id] = {
+							element: element,
+							type: 'color',
 							value: function(val) {
 								if (val !== undefined) {
 									this.element.value = val;
@@ -89,9 +152,9 @@ var ui = {};
 					break;
 
 				case 'range':
-					if (ui[e[i].id] === undefined) {
-						ui[e[i].id] = {
-							element: e[i],
+					if (ui[element.id] === undefined) {
+						ui[element.id] = {
+							element: element,
 							type: 'range',
 							value: function(val) {
 								if (val !== undefined) {
@@ -104,9 +167,9 @@ var ui = {};
 					break;
 
 				case 'password':
-					if (ui[e[i].id] === undefined) {
-						ui[e[i].id] = {
-							element: e[i],
+					if (ui[element.id] === undefined) {
+						ui[element.id] = {
+							element: element,
 							type: 'password',
 							value: function(val) {
 								if (val !== undefined) {
@@ -117,20 +180,25 @@ var ui = {};
 						};
 					}
 					break;
+
 			}
-		}
+		});
 
 		e = document.getElementsByTagName('select');
+		ui._selects = [];
 		for (i = 0; i < e.length; i++) {
+			ui._selects.push(e[i]);
+		}
 
-			if (ui[e[i].id] === undefined) {
-				ui[e[i].id] = {
-					element: e[i],
+		ui._selects.forEach(function(select) {
+			if (ui[select.id] === undefined) {
+				ui[select.id] = {
+					element: select,
 					type: 'select',
 					value: function(val) {
 						if (val !== undefined) {
 							val = val.toString();
-							for (j = 0; j < this.element.options.length; j++) {
+							for (var j = 0; j < this.element.options.length; j++) {
 								if (this.element.options[j].value === val) {
 									this.element.selectedIndex = j;
 									return this.element.options[j].value;
@@ -142,7 +210,7 @@ var ui = {};
 					}
 				};
 			}
-		}
+		});
 
 		e = document.getElementsByTagName('textarea');
 		for (i = 0; i < e.length; i++) {
@@ -151,15 +219,13 @@ var ui = {};
 					element: e[i],
 					type: 'textarea',
 					value: function(val) {
-						if (val !== undefined) {
-							this.element.value = val;
-
-						}
+						if (val !== undefined) { this.element.value = val; }
 						return this.element.value;
 					}
 				};
 			}
 		}
+
 	};
 	ui.init();
 })();
