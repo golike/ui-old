@@ -24,6 +24,12 @@ body {
     }
 }
 
+.float-grid {
+    .cell {
+        float: left;
+    }
+}
+
 // COLORS
 
 @colorTurquoise: #1abc9c;
@@ -435,26 +441,69 @@ body {
 .hidden { display: none !important; }
 .no-wrap { white-space: nowrap; }
 
-.tiny-padding { padding: @tiny; }
-.tiny-top-padding { padding-top: @tiny; }
-.tiny-right-padding { padding-right: @tiny; }
-.tiny-bottom-padding { padding-bottom: @tiny; }
-.tiny-left-padding { padding-left: @tiny; }
+.text-align-left { text-align: left; }
+.text-align-center { text-align: center; }
+.text-align-right { text-align: right; }
 
-.small-padding { padding: @small; }
-.small-top-padding { padding-top: @small; }
-.small-right-padding { padding-right: @small; }
-.small-bottom-padding { padding-bottom: @small; }
-.small-left-padding { padding-left: @small; }
+.no-padding { padding: 0 !important; }
+.no-top-padding { padding-top: 0 !important; }
+.no-right-padding { padding-right: 0 !important; }
+.no-bottom-padding { padding-bottom: 0 !important; }
+.no-left-padding { padding-left: 0 !important; }
+.no-horizontal-padding { padding-left: 0 !important; padding-right: 0 !important; }
+.no-vertical-padding { padding-top: 0 !important; padding-bottom: 0 !important; }
 
-.medium-padding { padding: @medium; }
-.medium-top-padding { padding-top: @medium; }
-.medium-right-padding { padding-right: @medium; }
-.medium-bottom-padding { padding-bottom: @medium; }
-.medium-left-padding { padding-left: @medium; }
+.tiny-padding { padding: @tiny !important; }
+.tiny-top-padding { padding-top: @tiny !important; }
+.tiny-right-padding { padding-right: @tiny !important; }
+.tiny-bottom-padding { padding-bottom: @tiny !important; }
+.tiny-left-padding { padding-left: @tiny !important; }
+.tiny-horizontal-padding { padding-left: @tiny !important; padding-right: @tiny !important; }
+.tiny-vertical-padding { padding-top: @tiny !important; padding-bottom: @tiny !important; }
 
-.large-padding { padding: @large; }
-.large-top-padding { padding-top: @large; }
-.large-right-padding { padding-right: @large; }
-.large-bottom-padding { padding-bottom: @large; }
-.large-left-padding { padding-left: @large; }
+.small-padding { padding: @small !important; }
+.small-top-padding { padding-top: @small !important; }
+.small-right-padding { padding-right: @small !important; }
+.small-bottom-padding { padding-bottom: @small !important; }
+.small-left-padding { padding-left: @small !important; }
+.small-horizontal-padding { padding-left: @small !important; padding-right: @small !important; }
+.small-vertical-padding { padding-top: @small !important; padding-bottom: @small !important; }
+
+.medium-padding { padding: @medium !important; }
+.medium-top-padding { padding-top: @medium !important; }
+.medium-right-padding { padding-right: @medium !important; }
+.medium-bottom-padding { padding-bottom: @medium !important; }
+.medium-left-padding { padding-left: @medium !important; }
+.medium-horizontal-padding { padding-left: @medium !important; padding-right: @medium !important; }
+.medium-vertical-padding { padding-top: @medium !important; padding-bottom: @medium !important; }
+
+.large-padding { padding: @large !important; }
+.large-top-padding { padding-top: @large !important; }
+.large-right-padding { padding-right: @large !important; }
+.large-bottom-padding { padding-bottom: @large !important; }
+.large-left-padding { padding-left: @large !important; }
+.large-horizontal-padding { padding-left: @large !important; padding-right: @large !important; }
+.large-vertical-padding { padding-top: @large !important; padding-bottom: @large !important; }
+
+
+// RESPONSIVENESS
+// s:  0-600px    phone
+// m:  601-768px  tablet
+// l:  769-1200px computer (centered fixed width)
+// xl: 1201px+    computer (centered fixed width)
+
+@media screen and (max-width: 600px) {
+
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+
+}
+
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+
+}
+
+@media screen and (min-width: 1201px) {
+
+}

@@ -3,8 +3,37 @@ var ui = {};
 (function() {
 	'use strict';
 	var i;
+	var size;
+
+	ui._updateSize = function() {
+		var prevSize = size;
+
+		if (window.innerWidth <= 600) {
+			size = 's';
+		} else if (window.innerWidth <= 768) {
+			size = 'm';
+		} else if (window.innerWidth <= 1200) {
+			size = 'l';
+		} else {
+			size = 'xl';
+		}
+		if (prevSize !== size) {
+			var body = document.getElementsByTagName('body')[0];
+			body.className =
+				body.className.split(' ').join(',')
+					.split('size-s').join('')
+					.split('size-m').join('')
+					.split('size-l').join('')
+					.split('size-xl').join('')
+					.split(',').join(' ') + ' size-' + size;
+		}
+	};
+
+	window.addEventListener('resize', ui._updateSize);
 
 	ui.init = function() {
+		ui._updateSize();
+
 		var e = document.getElementsByTagName('input');
 		ui._inputs = [];
 		for (i = 0; i < e.length; i++) {
@@ -26,31 +55,29 @@ var ui = {};
 								return e.type === 'radio' && e.name === element.name;
 							}),
 							type: 'radio',
-							value: function() {
-								return function(val) {
-									if (val !== undefined) {
-										var intendedElements = this.elements.filter(function(element) {
-											return element.value === val;
-										});
+							value: function(val) {
+								if (val !== undefined) {
+									var intendedElements = this.elements.filter(function(element) {
+										return element.value === val;
+									});
 
-										if (intendedElements.length > 0) {
-											intendedElements[0].checked = true;
-											return intendedElements[0].value;
-										} else {
-											return null;
-										}
+									if (intendedElements.length > 0) {
+										intendedElements[0].checked = true;
+										return intendedElements[0].value;
 									} else {
-										var checkedElements = this.elements.filter(function(element) {
-											return element.checked === true;
-										});
-										if (checkedElements.length > 0) {
-											return checkedElements[0].value;
-										} else {
-											return null;
-										}
+										return null;
 									}
-								};
-							}()
+								} else {
+									var checkedElements = this.elements.filter(function(element) {
+										return element.checked === true;
+									});
+									if (checkedElements.length > 0) {
+										return checkedElements[0].value;
+									} else {
+										return null;
+									}
+								}
+							}
 						};
 					}
 
@@ -91,7 +118,7 @@ var ui = {};
 									if (val !== undefined) {
 										this.element.checked = val;
 									}
-									return this.element.value;
+									return this.element.checked;
 								};
 							}()
 						};
