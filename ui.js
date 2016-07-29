@@ -20,12 +20,12 @@ var ui = {};
 		if (prevSize !== size) {
 			var body = document.getElementsByTagName('body')[0];
 			body.className =
-				body.className.split(' ').join(',')
+				(body.className.split(' ').join(',')
 					.split('size-s').join('')
 					.split('size-m').join('')
 					.split('size-l').join('')
 					.split('size-xl').join('')
-					.split(',').join(' ') + ' size-' + size;
+					.split(',').join(' ') + ' size-' + size).trim();
 		}
 	};
 
